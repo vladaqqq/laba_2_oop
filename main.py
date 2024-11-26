@@ -1,4 +1,5 @@
 import tkinter
+import tkinter.messagebox
 import random
 
 class Interface:
@@ -23,7 +24,6 @@ class Interface:
     def game_start(self):
         self._main_window.destroy()
         secret_number = random.randint(1, 100)
-        attempts = 0
         said_window = tkinter.Tk()
         said_window.title('Угадай число')
         said_window.geometry("400x400")
@@ -32,9 +32,21 @@ class Interface:
         label1.pack()
         enter = tkinter.Entry(said_window, width=30)
         enter.pack()
-        third_button = tkinter.Button(said_window, text='Проверить')
+        third_button = tkinter.Button(said_window, text='Проверить',
+                                      command=lambda: self.check_the_number(secret_number, enter))
         third_button.pack()
 
+    def check_the_number(self,secret,enter):
+        try:
+            user_numer = int(enter.get())
+            if user_numer < secret:
+               tkinter.messagebox.showinfo('Результат','Слишком мало!\nПопробуйте еще раз')
+            elif user_numer > secret:
+                tkinter.messagebox.showinfo('Результат','Слишком много!\nПопробуйте еще раз')
+            else:
+                tkinter.messagebox.showinfo('Результат','Вы выиграли!')
+        except ValueError:
+            tkinter.messagebox.showinfo('Результат','Введите число,а не символ!')
 
 
 if __name__ == '__main__':
