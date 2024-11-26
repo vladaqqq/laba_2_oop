@@ -33,10 +33,10 @@ class Interface:
         enter = tkinter.Entry(said_window, width=30)
         enter.pack()
         third_button = tkinter.Button(said_window, text='Проверить',
-                                      command=lambda: self.check_the_number(secret_number, enter))
+                                      command=lambda: self.check_the_number(secret_number, enter,said_window))
         third_button.pack()
 
-    def check_the_number(self,secret,enter):
+    def check_the_number(self,secret,enter,said_window):
         try:
             user_numer = int(enter.get())
             if user_numer < secret:
@@ -45,6 +45,7 @@ class Interface:
                 tkinter.messagebox.showinfo('Результат','Слишком много!\nПопробуйте еще раз')
             else:
                 tkinter.messagebox.showinfo('Результат','Вы выиграли!')
+                said_window.destroy()
         except ValueError:
             tkinter.messagebox.showinfo('Результат','Введите число,а не символ!')
 
