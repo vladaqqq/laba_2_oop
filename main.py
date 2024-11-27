@@ -15,10 +15,6 @@ class Interface:
         self._first_button = tkinter.Button(self._top_fame, text='Число загадывает компьютер',
                                             command=self.game_start)
         self._first_button.pack()
-        self._second_button = tkinter.Button(self._top_fame, text='Число загадывает пользователь',
-                                             command=self.game_start)
-        self._second_button.pack()
-
         self._main_window.mainloop()
 
     def game_start(self):
@@ -36,7 +32,7 @@ class Interface:
                                       command=lambda: self.check_the_number(secret_number, enter,said_window))
         third_button.pack()
 
-    def check_the_number(self,secret,enter,said_window):
+    def check_the_number(self, secret, enter, said_window):
         try:
             user_numer = int(enter.get())
             if user_numer < secret:
@@ -46,6 +42,17 @@ class Interface:
             else:
                 tkinter.messagebox.showinfo('Результат','Вы выиграли!')
                 said_window.destroy()
+                last_window = tkinter.Tk()
+                last_window.title('Угадай число')
+                last_window.geometry("300x200")
+                label2 = tkinter.Label(last_window, text='Вы выиграли!\nХотите сыграть еще раз?',
+                                       font=("Arial", 10, "bold"))
+                label2.pack()
+                fourth_button = tkinter.Button(last_window, text='Играть еще раз',
+                                               command=lambda: [last_window.destroy(), self.__init__()])
+                fifth_button = tkinter.Button(last_window, text='Выйти',command=last_window.destroy)
+                fourth_button.pack()
+                fifth_button.pack()
         except ValueError:
             tkinter.messagebox.showinfo('Результат','Введите число,а не символ!')
 
